@@ -2,7 +2,7 @@
 
 Python interface for the Gitter API
 
-[![Build Status](https://travis-ci.org/MichaelYusko/GitterHQPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterHQPY)
+[![Build Status](https://travis-ci.org/MichaelYusko/GitterHQPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterHQPy)
 
 
 Releases
