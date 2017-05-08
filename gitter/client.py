@@ -1,7 +1,7 @@
 import requests as r
 
 from gitter.const import GITTER_BASE_URL
-from gitter.errors import GitterTokenError
+from gitter.errors import GitterRoomError, GitterTokenError
 
 
 class BaseApi:
@@ -75,20 +75,22 @@ class Rooms(BaseApi):
     def grab_room(self, uri_name):
         return self.post('rooms', data={'uri': uri_name})
 
-    def join(self, room_id):
+    def join(self, room_name):
+        try:
+            room_id = self.grab_room(room_name)['id']
+            api_meth = 'user/{}/rooms'.format(self.get_user_id)
+            return self.post(api_meth, data={'id': room_id})
+        except KeyError:
+            return 'Room {} not found'.format(room_name)
+
+    def leave(self, room_name):
+        room_id = self.find_by_room_name(room_name)
         user_id = self.get_user_id
-        api_meth = 'user/{}/rooms'.format(user_id)
-        return self.post(api_meth, data={'id': room_id})
-
-    def leave(self, room_id, _user_id=None):
-        user_id = self.get_user_id
-
-        api_meth = 'rooms/{}/users/{}'.format(
-            room_id,
-            user_id if user_id else _user_id
-        )
-
-        return self.delete(api_meth)
+        if room_id:
+            api_meth = 'rooms/{}/users/{}'.format(room_id, user_id)
+            return self.delete(api_meth)
+        else:
+            raise GitterRoomError(room_name)
 
     def update(self, room_name, topic, no_index=None, tags=None):
         api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
@@ -120,7 +122,7 @@ class Messages(BaseApi):
             data={'text': text}
         )
 
-    def update(self):
+    def update(self, room_name, text):
         pass
 
 
