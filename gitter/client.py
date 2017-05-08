@@ -48,8 +48,13 @@ class BaseApi:
         for x in self.rooms_list:
             if x['name'] == name:
                 room_id = x['id']
-
         return room_id
+
+    def set_user_url(self, param):
+        return 'user/{}/{}'.format(self.get_user_id, param)
+
+    def set_message_url(self, param):
+        return 'rooms/{}/chatMessages'.format(param)
 
 
 class Auth(BaseApi):
@@ -71,12 +76,12 @@ class Rooms(BaseApi):
         return self.post('rooms', data={'uri': uri_name})
 
     def join(self, room_id):
-        user_id = self.get_user_id()
+        user_id = self.get_user_id
         api_meth = 'user/{}/rooms'.format(user_id)
         return self.post(api_meth, data={'id': room_id})
 
     def leave(self, room_id, _user_id=None):
-        user_id = self.get_user_id()
+        user_id = self.get_user_id
 
         api_meth = 'rooms/{}/users/{}'.format(
             room_id,
@@ -104,22 +109,58 @@ class Rooms(BaseApi):
 class Messages(BaseApi):
     def list(self, room_name):
         room_id = self.find_by_room_name(room_name)
-        api_meth = 'rooms/{}/chatMessages'.format(room_id)
-        return self.get(api_meth)
+        return self.get(
+            self.set_message_url(room_id)
+        )
 
     def send(self, room_name, text='GitterHQPy test message'):
         room_id = self.find_by_room_name(room_name)
-        api_meth = 'rooms/{}/chatMessages'.format(room_id)
-        return self.post(api_meth, data={'text': text})
+        return self.post(
+            self.set_message_url(room_id),
+            data={'text': text}
+        )
+
+    def update(self):
+        pass
 
 
 class User(BaseApi):
     def current_user(self):
         return self.check_auth()
 
+    @property
     def sub_resource(self):
-        api_meth = 'user/{}/rooms'.format(self.get_user_id)
+        return self.get(
+            self.set_user_url('rooms')
+        )
+
+    def unread_items(self, room_name):
+        api_meth = 'user/{}/rooms/{}/unreadItems'.format(
+            self.get_user_id,
+            self.find_by_room_name(room_name)
+        )
         return self.get(api_meth)
+
+    def mark_as_read(self):
+        pass
+
+    @property
+    def orgs(self):
+        return self.get(
+            self.set_user_url('orgs')
+        )
+
+    @property
+    def repos(self):
+        return self.get(
+            self.set_user_url('repos')
+        )
+
+    @property
+    def channels(self):
+        return self.get(
+            self.set_user_url('channels')
+        )
 
 
 class GitterClient(BaseApi):
