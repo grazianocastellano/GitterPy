@@ -12,3 +12,10 @@ class GitterMessageErorr(Exception):
 
 class GitterApiError:
     pass
+
+
+class GitterRoomError(Exception):
+    def __init__(self, room_name):
+        self.room_name = room_name
+
+    def __str__(self): return 'Room {} not found'.format(self.room_name)
