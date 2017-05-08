@@ -31,6 +31,7 @@ class BaseApi:
     def check_auth(self):
         return self.get('user')
 
+    @property
     def get_user_id(self):
         return self.check_auth()[0]['id']
 
@@ -95,8 +96,29 @@ class Rooms(BaseApi):
         api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
         return self.delete(api_meth)
 
-    def room_sub_resource(self, room_name):
+    def sub_resource(self, room_name):
         api_meth = 'rooms/{}/users'.format(self.find_by_room_name(room_name))
+        return self.get(api_meth)
+
+
+class Messages(BaseApi):
+    def list(self, room_name):
+        room_id = self.find_by_room_name(room_name)
+        api_meth = 'rooms/{}/chatMessages'.format(room_id)
+        return self.get(api_meth)
+
+    def send(self, room_name, text='GitterHQPy test message'):
+        room_id = self.find_by_room_name(room_name)
+        api_meth = 'rooms/{}/chatMessages'.format(room_id)
+        return self.post(api_meth, data={'text': text})
+
+
+class User(BaseApi):
+    def current_user(self):
+        return self.check_auth()
+
+    def sub_resource(self):
+        api_meth = 'user/{}/rooms'.format(self.get_user_id)
         return self.get(api_meth)
 
 
@@ -106,3 +128,5 @@ class GitterClient(BaseApi):
         self.auth = Auth(token)
         self.groups = Groups(token)
         self.rooms = Rooms(token)
+        self.message = Messages(token)
+        self.user = User(token)
