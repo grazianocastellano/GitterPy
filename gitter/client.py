@@ -22,6 +22,9 @@ class BaseApi:
     def post(self, api, **kwargs):
         return self.request_process(r.post, api, **kwargs)
 
+    def put(self, api, **kwargs):
+        return self.request_process(r.put, api, **kwargs)
+
     def delete(self, api, **kwargs):
         return self.request_process(r.delete, api, **kwargs)
 
@@ -32,8 +35,20 @@ class BaseApi:
         return self.check_auth()[0]['id']
 
     @property
+    def rooms_list(self):
+        return self.get('rooms')
+
+    @property
     def groups_list(self):
         return self.get('groups')
+
+    def find_by_room_name(self, name):
+        room_id = ''
+        for x in self.rooms_list:
+            if x['name'] == name:
+                room_id = x['id']
+
+        return room_id
 
 
 class Auth(BaseApi):
@@ -51,16 +66,8 @@ class Groups(BaseApi):
 
 
 class Rooms(BaseApi):
-    @property
-    def list(self):
-        return self.get('rooms')
-
     def grab_room(self, uri_name):
         return self.post('rooms', data={'uri': uri_name})
-
-    def get_room_id(self, uri_name):
-        room = self.post('rooms', data={'uri': uri_name})
-        return {'Room': room['name'], 'room_id': room['id']}
 
     def join(self, room_id):
         user_id = self.get_user_id()
@@ -76,6 +83,21 @@ class Rooms(BaseApi):
         )
 
         return self.delete(api_meth)
+
+    def update(self, room_name, topic, no_index=None, tags=None):
+        api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
+        return self.put(
+            api_meth,
+            data={'topic': topic, 'noindex': no_index, 'tags': tags}
+        )
+
+    def delete_room(self, room_name):
+        api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
+        return self.delete(api_meth)
+
+    def room_sub_resource(self, room_name):
+        api_meth = 'rooms/{}/users'.format(self.find_by_room_name(room_name))
+        return self.get(api_meth)
 
 
 class GitterClient(BaseApi):
