@@ -1,6 +1,6 @@
 import requests as r
 
-from gitter.const import GITTER_BASE_URL
+from gitter.const import GITTER_BASE_URL, GITTER_STREAM_URL
 from gitter.errors import GitterRoomError, GitterTokenError
 
 
@@ -9,12 +9,15 @@ class BaseApi:
         if not token:
             raise GitterTokenError
         self.token = token
+        self.headers = {'Authorization': 'Bearer ' + self.token}
+
+    def stream_request(self, method, api, **kwargs):
+        url = GITTER_STREAM_URL + api
+        return method(url, headers=self.headers, stream=True, **kwargs).json()
 
     def request_process(self, method, api, **kwargs):
-        headers = {
-            'Authorization': 'Bearer ' + self.token,
-        }
-        return method(GITTER_BASE_URL + api, headers=headers, **kwargs).json()
+        url = GITTER_BASE_URL + api
+        return method(url, headers=self.headers, **kwargs).json()
 
     def get(self, api, **kwargs):
         return self.request_process(r.get, api, **kwargs)
@@ -27,6 +30,9 @@ class BaseApi:
 
     def delete(self, api, **kwargs):
         return self.request_process(r.delete, api, **kwargs)
+
+    def stream_get(self, api, **kwargs):
+        return self.stream_request(r.get, api, **kwargs)
 
     def check_auth(self):
         return self.get('user')
@@ -165,11 +171,28 @@ class User(BaseApi):
         )
 
 
+class Stream(BaseApi):
+    """
+    Methods will be refactor.
+    """
+    def chat_messages(self, room_name):
+        room_id = self.find_by_room_name(room_name)
+        return self.stream_get(
+            self.set_message_url(room_id)
+        )
+
+    def events(self, room_name):
+        room_id = self.find_by_room_name(room_name)
+        api_meth = 'rooms/{}/events'.format(room_id)
+        return self.stream_get(api_meth)
+
+
 class GitterClient(BaseApi):
     def __init__(self, token=None):
         super().__init__(token)
         self.auth = Auth(token)
         self.groups = Groups(token)
         self.rooms = Rooms(token)
-        self.message = Messages(token)
+        self.messages = Messages(token)
         self.user = User(token)
+        self.stream = Stream(token)
