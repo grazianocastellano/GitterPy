@@ -7,7 +7,7 @@ version = gitterpy.__version__
 setup_kwargs = {
     'name': 'gitterpy',
     'version': version,
-    'url': 'https://github.com/MichaelYusko/GitterHQPy',
+    'url': 'https://github.com/MichaelYusko/GitterPy',
     'license': 'GNU',
     'author': 'Fresh Jelly',
     'author_email': 'freshjelly12@yahoo.com',
