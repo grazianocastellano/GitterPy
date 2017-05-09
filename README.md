@@ -1,8 +1,8 @@
-# GitterHQPy
+# GitterPy
 
 Python interface for the Gitter API
 
-[![Build Status](https://travis-ci.org/MichaelYusko/GitterHQPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterHQPy)
+[![Build Status](https://travis-ci.org/MichaelYusko/GitterPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterPy)
 
 
 Releases
@@ -20,7 +20,7 @@ coming soon
 Usage
 =================================
 ```python
-from gitter import GitterClient
+from gitterpy import GitterClient
 
 # Create instance
 gitter = GitterClient('YOUR_TOKEN')

@@ -1,7 +1,7 @@
 import requests as r
 
-from gitter.const import GITTER_BASE_URL, GITTER_STREAM_URL
-from gitter.errors import GitterRoomError, GitterTokenError
+from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
+from gitterpy.errors import GitterRoomError, GitterTokenError
 
 
 class BaseApi:
