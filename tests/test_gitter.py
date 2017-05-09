@@ -3,7 +3,7 @@ import unittest
 
 from mock import Mock, patch
 
-from gitter.client import Auth
+from gitterpy.client import Auth
 
 
 class TestGitter(unittest.TestCase):
@@ -12,7 +12,7 @@ class TestGitter(unittest.TestCase):
 
     def tearDown(self): pass
 
-    @patch('gitter.client.r')
+    @patch('gitterpy.client.r')
     def test_gitter_auth(self, request):
         text = [{'id': '1', 'name': 'Freshjelly'}]
         json_data = json.dumps(text)

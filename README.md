@@ -1,4 +1,4 @@
-# GitterHQPy
+# GitterPy
 
 Python interface for the Gitter API
 
@@ -20,7 +20,7 @@ coming soon
 Usage
 =================================
 ```python
-from gitter import GitterClient
+from gitterpy import GitterClient
 
 # Create instance
 gitter = GitterClient('YOUR_TOKEN')
