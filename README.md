@@ -17,7 +17,7 @@ coming soon
 
 
 
-Documentation
+Usage
 =================================
 coming soon
 
