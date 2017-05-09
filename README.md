@@ -7,15 +7,20 @@ Python interface for the Gitter API
 
 Releases
 =================================
-* 0.0.1 - planning(PyPi)
+* 0.0.2 - planning(PyPi)
 * 0.0.1 - planning(PyPi test)
 
 
 Installation
 =================================
-coming soon
+```
+# Test PyPi
+pip install --extra-index-url https://testpypi.python.org/pypi gitterpy
 
+# PyPi
+not uploaded yet
 
+```
 
 Usage
 =================================
@@ -43,7 +48,7 @@ gitter.rooms.grab_room('gitterHQ/sandbox')
 
 
 # Send a message to #gitterHQ/sandbox room
-print(gitter.messages.send('gitterHQ/sandbox', 'Hello everyone'))
+gitter.messages.send('gitterHQ/sandbox', 'Hello everyone')
 
 
 # Message list
@@ -51,6 +56,7 @@ gitter.messages.list('gitterHQ/sandbox')
 ```
 
 
-TODO
+Pull Requests
 =================================
-coming soon
+1. `git clone git@github.com:MichaelYusko/GitterPy.git`
+2. Feel free to make a PR;)
