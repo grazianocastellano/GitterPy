@@ -19,7 +19,7 @@ coming soon
 
 Usage
 =================================
-```
+```python
 from gitter import GitterClient
 
 # Create instance
