@@ -19,7 +19,36 @@ coming soon
 
 Usage
 =================================
-coming soon
+```
+from gitter import GitterClient
+
+# Create instance
+gitter = GitterClient('YOUR_TOKEN')
+
+
+# Join into the room
+gitter.rooms.join('gitterHQ/sandbox')
+
+
+# Leave from the room
+gitter.rooms.leave('gitterHQ/sandbox')
+
+
+# List of rooms
+gitter.rooms.rooms_list
+
+
+# Grab room
+gitter.rooms.grab_room('gitterHQ/sandbox')
+
+
+# Send a message to #gitterHQ/sandbox room
+print(gitter.messages.send('gitterHQ/sandbox', 'Hello everyone'))
+
+
+# Message list
+gitter.messages.list('gitterHQ/sandbox')
+```
 
 
 TODO
