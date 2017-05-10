@@ -1,7 +1,7 @@
 import requests as r
 
 from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
-from gitterpy.errors import GitterRoomError, GitterTokenError
+from gitterpy.errors import GitterItemsError, GitterRoomError, GitterTokenError
 
 
 class BaseApi:
@@ -61,6 +61,12 @@ class BaseApi:
 
     def set_message_url(self, param):
         return 'rooms/{}/chatMessages'.format(param)
+
+    def set_user_items_url(self, room_name):
+        return 'user/{}/rooms/{}/unreadItems'.format(
+            self.get_user_id,
+            self.find_by_room_name(room_name)
+        )
 
 
 class Auth(BaseApi):
@@ -144,14 +150,20 @@ class User(BaseApi):
         )
 
     def unread_items(self, room_name):
-        api_meth = 'user/{}/rooms/{}/unreadItems'.format(
-            self.get_user_id,
-            self.find_by_room_name(room_name)
-        )
+        api_meth = self.set_user_items_url(room_name)
         return self.get(api_meth)
 
-    def mark_as_read(self):
-        pass
+    def mark_as_read(self, room_name):
+        """
+        message_ids return an array
+        with unread message ids ['131313231', ['323131']
+        """
+        api_meth = self.set_user_items_url(room_name)
+        message_ids = self.unread_items(room_name).get('chat')
+        if message_ids:
+            return self.post(api_meth, data={'chat': message_ids})
+        else:
+            raise GitterItemsError(room_name)
 
     @property
     def orgs(self):

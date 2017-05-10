@@ -56,7 +56,7 @@ gitter.rooms.sub_resource('gitterHQ/sandbox')
 gitter.rooms.update('test-gitter/test1', 'My updated topic')
 
 # Delete the room
-gitter.rooms.delete_room('test-gitter/test1') # return {'success': True}
+gitter.rooms.delete_room('test-gitter/test1') #  {'success': True}
 
 
 ####### Messages
@@ -80,6 +80,9 @@ gitter.user.sub_resource # [{'noindex': True, 'id': '3131', ...}]
 
 # User unread-items
 gitter.user.unread_items('gitterHQ/sandbox') # {'mention': [], 'chat': []}
+
+# Mark all messages in the room as read
+gitter.user.mark_as_read('test-gitter/Lobby') # {'success': True}
 
 # User orgs
 gitter.user.orgs # [{'name': 'bla bla', 'description': 'blabla', ...}]
