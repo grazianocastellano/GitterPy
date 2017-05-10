@@ -66,6 +66,9 @@ gitter.messages.send('gitterHQ/sandbox', 'Hello everyone')
 # Message list
 gitter.messages.list('gitterHQ/sandbox')
 
+# Get single message by id
+gitter.messages.get_message('gitterHQ/sandbox', '5903a16d6a471')
+
 
 ####### Groups
 # List of groups
