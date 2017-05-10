@@ -68,6 +68,10 @@ class BaseApi:
             self.find_by_room_name(room_name)
         )
 
+    def get_and_update_msg_url(self, room_name, message_id):
+        room_id = self.find_by_room_name(room_name)
+        return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
+
 
 class Auth(BaseApi):
     @property
@@ -134,8 +138,14 @@ class Messages(BaseApi):
             data={'text': text}
         )
 
-    def update(self, room_name, text):
-        pass
+    def get_message(self, room_name, message_id):
+        api_meth = self.get_and_update_msg_url(room_name, message_id)
+        return self.get(api_meth)
+
+    # Need to investigate why do we always get 'Bad request' error
+    # def update(self, room_name, message_id, text='GitterPy update message'):
+    #     api_meth = self.get_and_update_msg_url(room_name, message_id)
+    #     return self.post(api_meth, data={'text': text})
 
 
 class User(BaseApi):
@@ -156,7 +166,7 @@ class User(BaseApi):
     def mark_as_read(self, room_name):
         """
         message_ids return an array
-        with unread message ids ['131313231', ['323131']
+        with unread message ids ['131313231', '323131']
         """
         api_meth = self.set_user_items_url(room_name)
         message_ids = self.unread_items(room_name).get('chat')
