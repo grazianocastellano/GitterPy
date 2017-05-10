@@ -68,7 +68,7 @@ class Auth(BaseApi):
     def get_my_id(self):
         user_id = self.check_auth()[0]['id']
         name = self.check_auth()[0]['username']
-        return {'Name': name, 'user_id': user_id}
+        return {'name': name, 'user_id': user_id}
 
 
 class Groups(BaseApi):
@@ -133,6 +133,7 @@ class Messages(BaseApi):
 
 
 class User(BaseApi):
+    @property
     def current_user(self):
         return self.check_auth()
 
