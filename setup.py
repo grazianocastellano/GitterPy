@@ -14,7 +14,7 @@ setup_kwargs = {
     'description': 'Python interface for the Gitter API',
     'packages': ['gitterpy'],
     'classifiers': [
-        'Development Status :: 1 - Planning',
+        'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.5',
         'License :: OSI Approved :: GNU General Public License (GPL)'
