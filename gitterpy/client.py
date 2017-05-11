@@ -142,11 +142,6 @@ class Messages(BaseApi):
         api_meth = self.get_and_update_msg_url(room_name, message_id)
         return self.get(api_meth)
 
-    # Need to investigate why do we always get 'Bad request' error
-    # def update(self, room_name, message_id, text='GitterPy update message'):
-    #     api_meth = self.get_and_update_msg_url(room_name, message_id)
-    #     return self.post(api_meth, data={'text': text})
-
 
 class User(BaseApi):
     @property
@@ -195,9 +190,6 @@ class User(BaseApi):
 
 
 class Stream(BaseApi):
-    """
-    Methods will be refactor.
-    """
     def chat_messages(self, room_name):
         room_id = self.find_by_room_name(room_name)
         return self.stream_get(
