@@ -14,12 +14,7 @@ Releases
 Installation
 =================================
 ```
-# Test PyPi
-pip install --extra-index-url https://testpypi.python.org/pypi gitterpy
-
-# PyPi
-not uploaded yet
-
+pip install gitterpy
 ```
 
 Usage
