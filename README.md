@@ -7,8 +7,8 @@ Python interface for the Gitter API
 
 Releases
 =================================
-* 0.0.2 - planning(PyPi)
-* 0.0.1 - planning(PyPi test)
+* 0.1.0 - Alpha(PyPi)
+* 0.1.0 - Alpha(PyPi test)
 
 
 Installation
@@ -101,7 +101,7 @@ gitter.stream.events('gitterHQ/sandbox')
 ```
 
 
-Pull Requests
+Contribution
 =================================
 1. `git clone git@github.com:MichaelYusko/GitterPy.git`
 2. Feel free to make a PR;)
