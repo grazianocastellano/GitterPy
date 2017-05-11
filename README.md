@@ -19,19 +19,20 @@ pip install gitterpy
 
 Usage
 =================================
+
+### Auth
 ```python
 from gitterpy import GitterClient
 
-# Create instance
+# Once create instance
 gitter = GitterClient('YOUR_TOKEN')
 
-####### Auth
 # Check_my id
 gitter.auth.get_my_id # return {'name': 'Freshjelly', 'user_id': '5332131921'}
+```
 
-
-
-####### Rooms
+### Rooms
+```python
 # Join into the room
 gitter.rooms.join('gitterHQ/sandbox')
 
@@ -52,9 +53,9 @@ gitter.rooms.update('test-gitter/test1', 'My updated topic')
 
 # Delete the room
 gitter.rooms.delete_room('test-gitter/test1') #  {'success': True}
-
-
-####### Messages
+```
+### Messages
+```python
 # Send a message to #gitterHQ/sandbox room
 gitter.messages.send('gitterHQ/sandbox', 'Hello everyone')
 
@@ -63,13 +64,17 @@ gitter.messages.list('gitterHQ/sandbox')
 
 # Get single message by id
 gitter.messages.get_message('gitterHQ/sandbox', '5903a16d6a471')
+```
 
 
-####### Groups
+### Groups
+```python
 # List of groups
 gitter.groups.groups_list
+```
 
-####### User
+### User
+```python
 # Current user
 gitter.user.current_user #  [{'displayName': 'freshjelly', 'id': '3131', ...}]
 
@@ -90,9 +95,10 @@ gitter.user.repos # [{'name': 'MichaelYusko/GitterPy', 'description': 'Python fo
 
 # User channels
 gitter.user.channels
+```
 
-
-##### Stream
+### Stream
+```python
 # Chat messages
 gitter.stream.chat_messages('gitterHQ/sandbox')
 
