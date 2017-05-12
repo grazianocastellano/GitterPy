@@ -3,7 +3,7 @@ import unittest
 
 from mock import MagicMock, patch
 
-from gitterpy.client import Auth, Rooms, Groups, Messages
+from gitterpy.client import Auth, Groups, Messages, Rooms
 
 
 class TestGitter(unittest.TestCase):
@@ -38,17 +38,24 @@ class TestGitter(unittest.TestCase):
     @patch('gitterpy.client.r')
     def test_update_room_topic(self, request):
         request.get.return_value = self.mock_data
-        self.assertTrue(self.json_data, self.rooms.update('gitterHQ/sandbox', 'My topic'))
+        self.assertTrue(
+            self.json_data,
+            self.rooms.update('gitterHQ/sandbox', 'My topic')
+        )
 
     @patch('gitterpy.client.r')
     def test_room_sub_resource(self, request):
         request.get.return_value = self.mock_data
-        self.assertTrue(self.json_data, self.rooms.sub_resource('gitterHQ/sandbox'))
+        self.assertTrue(
+            self.json_data,
+            self.rooms.sub_resource('gitterHQ/sandbox')
+        )
 
     @patch('gitterpy.client.r')
     def test_message_list(self, request):
         request.get.return_value = self.mock_data
         self.assertTrue(self.json_data, self.messages.list('gitterHQ/sandbox'))
+
 
 if __name__ == '__main__':
     unittest.main()
