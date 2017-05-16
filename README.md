@@ -1,6 +1,6 @@
 # GitterPy
 
-Python interface for the Gitter API
+Python interface for the [Gitter API](https://github.com/gitterHQ/docs/blob/master/09.Third-party-API-wrappers.md)
 
 [![Build Status](https://travis-ci.org/MichaelYusko/GitterPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterPy)
 
