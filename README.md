@@ -7,8 +7,7 @@ Python interface for the [Gitter API](https://github.com/gitterHQ/docs/blob/mast
 
 Releases
 =================================
-* 0.1.0 - Alpha(PyPi)
-* 0.1.0 - Alpha(PyPi test)
+* 0.1.2 - PyPi
 
 
 Installation
