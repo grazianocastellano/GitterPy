@@ -211,3 +211,9 @@ class GitterClient(BaseApi):
         self.messages = Messages(token)
         self.user = User(token)
         self.stream = Stream(token)
+
+    def __repr__(self):
+        return "GitterClient(Name: {}, ID: {})".format(
+            self.auth.get_my_id['name'],
+            self.auth.get_my_id['user_id']
+        )
