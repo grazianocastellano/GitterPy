@@ -22,7 +22,7 @@ Usage
 
 ### Auth
 ```python
-from gitterpy import GitterClient
+from gitterpy.client import GitterClient
 
 # Once create instance
 gitter = GitterClient('YOUR_TOKEN')
