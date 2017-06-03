@@ -17,7 +17,7 @@ setup_kwargs = {
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.5',
-        'License :: OSI Approved :: GNU General Public License (GPL)'
+        'License :: OSI Approved :: MIT License'
     ],
  }
 
