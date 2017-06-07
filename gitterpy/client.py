@@ -76,9 +76,14 @@ class BaseApi:
 class Auth(BaseApi):
     @property
     def get_my_id(self):
-        user_id = self.check_auth()[0]['id']
-        name = self.check_auth()[0]['username']
-        return {'name': name, 'user_id': user_id}
+        try:
+            user_id = self.check_auth()[0]['id']
+            name = self.check_auth()[0]['username']
+            return {'name': name, 'user_id': user_id}
+        except KeyError:
+            raise GitterTokenError(
+                'Check whether your token is correct'
+            )
 
 
 class Groups(BaseApi):
@@ -213,7 +218,7 @@ class GitterClient(BaseApi):
         self.stream = Stream(token)
 
     def __repr__(self):
-        return "GitterClient(Name: {}, ID: {})".format(
+        return "GitterClient(name: {}, user_id: {})".format(
             self.auth.get_my_id['name'],
             self.auth.get_my_id['user_id']
         )
