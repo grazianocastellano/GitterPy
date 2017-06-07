@@ -8,7 +8,11 @@ class GitterApiError:
 
 
 class GitterTokenError(Exception):
-    def __str__(self): return 'Please provide your token'
+    def __init__(self, error='Please provide your token'):
+        self.error = error
+
+    def __str__(self):
+        return self.error
 
 
 class GitterMessageErorr(BaseGitterError):
