@@ -9,7 +9,7 @@ setup_kwargs = {
     'version': version,
     'url': 'https://github.com/MichaelYusko/GitterPy',
     'license': 'GNU',
-    'author': 'Fresh Jelly',
+    'author': 'Frozen Monkey',
     'author_email': 'freshjelly12@yahoo.com',
     'description': 'Python interface for the Gitter API',
     'packages': ['gitterpy'],
