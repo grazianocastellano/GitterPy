@@ -1,5 +1,5 @@
 """
-:copyright: Mike Yusko a.k.a Frozen Monkey
+:copyright: Mike Yusko
 :license: MIT, see LICENSE for more details.
 """
 __version__ = '0.1.5'
