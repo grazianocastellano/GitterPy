@@ -5,6 +5,31 @@ from gitterpy.errors import GitterItemsError, GitterRoomError, GitterTokenError
 
 
 class BaseApi:
+    """Base Gitter API class
+
+        Init:
+            token an Gitter Token
+            headers Headers for the HTTP methods
+
+        Methods:
+            stream_request Make a stream request
+            request_process Base method for get/post/put/delete methods
+            get  Send HTTP GET method to the API
+            post Send HTTP POST method to the API
+            put  Send HTTP PUT method to the API
+            delete  Send HTTP DELETE method to the API
+            stream_get Send HTTP GET method for stream endpoint
+            check_auth Validate your credentials, true/false
+            find_by_room_name Search room by name
+            set_user_url Make url for the User endpoint
+            set_message_url Make url for the Message endpoint
+            set_user_items_url  Make url for the Items endpoint
+
+        Properties:
+            get_user_id Return an User ID
+            room_list Return list of rooms
+            group_list  Return list of groups
+    """
     def __init__(self, token):
         if not token:
             raise GitterTokenError
@@ -74,6 +99,11 @@ class BaseApi:
 
 
 class Auth(BaseApi):
+    """Base class for authentication flow
+
+        Properties:
+            get_my_id Return own ID
+    """
     @property
     def get_my_id(self):
         try:
