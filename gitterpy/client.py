@@ -82,7 +82,7 @@ class Auth(BaseApi):
             return {'name': name, 'user_id': user_id}
         except KeyError:
             raise GitterTokenError(
-                'Check whether your token is correct'
+                'Check if your token is correct'
             )
 
 
