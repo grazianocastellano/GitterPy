@@ -2,19 +2,20 @@ from distutils.core import setup
 
 import gitterpy
 
-version = gitterpy.__version__
+VERSION = gitterpy.__version__
+AUTHOR = gitterpy.__author__
 
 setup_kwargs = {
     'name': 'gitterpy',
-    'version': version,
+    'version': VERSION,
     'url': 'https://github.com/MichaelYusko/GitterPy',
     'license': 'GNU',
-    'author': 'Frozen Monkey',
+    'author': AUTHOR,
     'author_email': 'freshjelly12@yahoo.com',
     'description': 'Python interface for the Gitter API',
     'packages': ['gitterpy'],
     'classifiers': [
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Programming Language :: Python :: 3.5',
         'License :: OSI Approved :: MIT License'
@@ -27,4 +28,4 @@ setup_kwargs['install_requires'] = requirements
 setup(**setup_kwargs)
 
 print(u"\n\n\t\t    "
-      "GitterPy version {} installation succeeded.\n".format(version))
+      "GitterPy version {} installation succeeded.\n".format(VERSION))

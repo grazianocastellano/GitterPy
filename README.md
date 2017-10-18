@@ -99,7 +99,12 @@ gitter.user.channels
 ### Stream
 ```python
 # Chat messages
-gitter.stream.chat_messages('gitterHQ/sandbox')
+
+response = gitter.stream.chat_messages('gitterHQ/sandbox')
+
+for stream_messages in response.iter_lines():
+    if stream_messages:
+        print(stream_messages)
 
 # Events
 gitter.stream.events('gitterHQ/sandbox')

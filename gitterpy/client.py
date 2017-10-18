@@ -38,7 +38,7 @@ class BaseApi:
 
     def stream_request(self, method, api, **kwargs):
         url = GITTER_STREAM_URL + api
-        return method(url, headers=self.headers, stream=True, **kwargs).json()
+        return method(url, headers=self.headers, stream=True, **kwargs)
 
     def request_process(self, method, api, **kwargs):
         url = GITTER_BASE_URL + api
@@ -225,10 +225,11 @@ class User(BaseApi):
 
 
 class Stream(BaseApi):
-    def chat_messages(self, room_name):
+    def chat_messages(self, room_name, **kwargs):
         room_id = self.find_by_room_name(room_name)
         return self.stream_get(
-            self.set_message_url(room_id)
+            self.set_message_url(room_id),
+            **kwargs
         )
 
     def events(self, room_name):
