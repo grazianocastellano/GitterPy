@@ -7,7 +7,7 @@ Python 3 interface for the [Gitter API](https://github.com/gitterHQ/docs/blob/ma
 
 Releases
 =================================
-* 0.1.4 - PyPi
+* 0.1.6 - PyPi
 
 
 Installation

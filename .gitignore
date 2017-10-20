@@ -90,3 +90,6 @@ ENV/
 
 # Ignore idea files
 .idea
+
+# Other stuff
+.DS_Store
