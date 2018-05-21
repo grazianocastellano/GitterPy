@@ -81,6 +81,12 @@ class BaseApi:
                 room_id = x['id']
         return room_id
 
+    def get_room(self, name):
+        room_id = self.find_by_room_name(name)
+        if room_id == '':
+            raise GitterRoomError(name)
+        return room_id
+
     def set_user_url(self, param):
         return 'user/{}/{}'.format(self.get_user_id, param)
 
@@ -90,11 +96,11 @@ class BaseApi:
     def set_user_items_url(self, room_name):
         return 'user/{}/rooms/{}/unreadItems'.format(
             self.get_user_id,
-            self.find_by_room_name(room_name)
+            self.get_room(room_name)
         )
 
     def get_and_update_msg_url(self, room_name, message_id):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
 
 
@@ -135,39 +141,36 @@ class Rooms(BaseApi):
             return 'Room {} not found'.format(room_name)
 
     def leave(self, room_name):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         user_id = self.get_user_id
-        if room_id:
-            api_meth = 'rooms/{}/users/{}'.format(room_id, user_id)
-            return self.delete(api_meth)
-        else:
-            raise GitterRoomError(room_name)
+        api_meth = 'rooms/{}/users/{}'.format(room_id, user_id)
+        return self.delete(api_meth)
 
     def update(self, room_name, topic, no_index=None, tags=None):
-        api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
+        api_meth = 'rooms/{}'.format(self.get_room(room_name))
         return self.put(
             api_meth,
             data={'topic': topic, 'noindex': no_index, 'tags': tags}
         )
 
     def delete_room(self, room_name):
-        api_meth = 'rooms/{}'.format(self.find_by_room_name(room_name))
+        api_meth = 'rooms/{}'.format(self.get_room(room_name))
         return self.delete(api_meth)
 
     def sub_resource(self, room_name):
-        api_meth = 'rooms/{}/users'.format(self.find_by_room_name(room_name))
+        api_meth = 'rooms/{}/users'.format(self.get_room(room_name))
         return self.get(api_meth)
 
 
 class Messages(BaseApi):
     def list(self, room_name):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         return self.get(
             self.set_message_url(room_id)
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         return self.post(
             self.set_message_url(room_id),
             data={'text': text}
@@ -226,14 +229,14 @@ class User(BaseApi):
 
 class Stream(BaseApi):
     def chat_messages(self, room_name, **kwargs):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         return self.stream_get(
             self.set_message_url(room_id),
             **kwargs
         )
 
     def events(self, room_name):
-        room_id = self.find_by_room_name(room_name)
+        room_id = self.get_room(room_name)
         api_meth = 'rooms/{}/events'.format(room_id)
         return self.stream_get(api_meth)
 
