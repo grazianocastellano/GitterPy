@@ -33,7 +33,7 @@ class BaseApi:
     def __init__(self, token):
         if not token:
             raise GitterTokenError
-        self.token = token
+        self.token = token.strip()
         self.headers = {'Authorization': 'Bearer ' + self.token}
 
     def stream_request(self, method, api, **kwargs):
