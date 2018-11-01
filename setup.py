@@ -22,7 +22,7 @@ setup_kwargs = {
     ],
  }
 
-requirements = ['requests>=2.13.0']
+requirements = ['requests>=2.20.0']
 setup_kwargs['install_requires'] = requirements
 
 setup(**setup_kwargs)
