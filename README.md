@@ -2,7 +2,7 @@
 
 Python 3 interface for the [Gitter API](https://github.com/gitterHQ/docs/blob/master/09.Third-party-API-wrappers.md)
 
-[![Build Status](https://travis-ci.org/MichaelYusko/GitterPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterPy) [![PyPI version](https://badge.fury.io/py/gitterpy.svg)](https://badge.fury.io/py/gitterpy)
+[![Build Status](https://travis-ci.org/myusko/GitterPy.svg?branch=master)](https://travis-ci.org/MichaelYusko/GitterPy) [![PyPI version](https://badge.fury.io/py/gitterpy.svg)](https://badge.fury.io/py/gitterpy)
 
 
 Releases
