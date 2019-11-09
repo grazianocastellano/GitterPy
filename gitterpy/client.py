@@ -91,7 +91,7 @@ class BaseApi:
         return 'user/{}/{}'.format(self.get_user_id, param)
 
     def set_message_url(self, param):
-        return 'rooms/{}/chatMessages'.format(param)
+        return 'rooms/{}/chatMessages?limit=100'.format(param)
 
     def set_user_items_url(self, room_name):
         return 'user/{}/rooms/{}/unreadItems'.format(
@@ -102,6 +102,11 @@ class BaseApi:
     def get_and_update_msg_url(self, room_name, message_id):
         room_id = self.get_room(room_name)
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
+
+    def set_message_url_by_id(self, param, message_id):
+        var = 'rooms/{}/chatMessages?beforeId=' + message_id
+        #print(var)
+        return var.format(param)
 
 
 class Auth(BaseApi):
@@ -167,6 +172,12 @@ class Messages(BaseApi):
         room_id = self.get_room(room_name)
         return self.get(
             self.set_message_url(room_id)
+        )
+
+    def get_messages_before_id(self, room_name, messages_id):
+        room_id = self.get_room(room_name)
+        return self.get(
+            self.set_message_url_by_id(room_id,messages_id)    
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
