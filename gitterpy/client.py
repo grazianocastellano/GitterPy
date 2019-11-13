@@ -1,8 +1,9 @@
 import requests as r
+import json
+import copy
 
 from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
 from gitterpy.errors import GitterItemsError, GitterRoomError, GitterTokenError
-
 
 class BaseApi:
     """Base Gitter API class
@@ -91,7 +92,7 @@ class BaseApi:
         return 'user/{}/{}'.format(self.get_user_id, param)
 
     def set_message_url(self, param):
-        return 'rooms/{}/chatMessages?limit=100'.format(param)
+        return 'rooms/{}/chatMessages'.format(param)
 
     def set_user_items_url(self, room_name):
         return 'user/{}/rooms/{}/unreadItems'.format(
@@ -190,6 +191,22 @@ class Messages(BaseApi):
     def get_message(self, room_name, message_id):
         api_meth = self.get_and_update_msg_url(room_name, message_id)
         return self.get(api_meth)
+    
+    def get_all_messages(self, room_name):
+        list1 = self.list(room_name)
+        list2 = copy.deepcopy(list1)
+        list2.reverse()
+        while(True):
+            try:
+                var = list1[0]['id']
+                list1 = self.get_messages_before_id(room_name,var)
+                list1_reverse = copy.deepcopy(list1)
+                list1_reverse.reverse()
+                list2 = list2 + list1_reverse
+            except:
+                break
+        list2.reverse()
+        return list2
 
 
 class User(BaseApi):
