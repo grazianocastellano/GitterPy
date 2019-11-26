@@ -104,10 +104,9 @@ class BaseApi:
         room_id = self.get_room(room_name)
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
 
-    def set_message_url_by_id(self, param, message_id):
+    def set_message_url_before_id(self, room_name, message_id):
         var = 'rooms/{}/chatMessages?beforeId=' + message_id
-        #print(var)
-        return var.format(param)
+        return var.format(room_name)
 
 
 class Auth(BaseApi):
@@ -178,7 +177,7 @@ class Messages(BaseApi):
     def get_messages_before_id(self, room_name, messages_id):
         room_id = self.get_room(room_name)
         return self.get(
-            self.set_message_url_by_id(room_id,messages_id)    
+            self.set_message_url_before_id(room_id,messages_id)    
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
@@ -191,22 +190,6 @@ class Messages(BaseApi):
     def get_message(self, room_name, message_id):
         api_meth = self.get_and_update_msg_url(room_name, message_id)
         return self.get(api_meth)
-    
-    def get_all_messages(self, room_name):
-        list1 = self.list(room_name)
-        list2 = copy.deepcopy(list1)
-        list2.reverse()
-        while(True):
-            try:
-                var = list1[0]['id']
-                list1 = self.get_messages_before_id(room_name,var)
-                list1_reverse = copy.deepcopy(list1)
-                list1_reverse.reverse()
-                list2 = list2 + list1_reverse
-            except:
-                break
-        list2.reverse()
-        return list2
 
 
 class User(BaseApi):
