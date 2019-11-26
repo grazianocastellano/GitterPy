@@ -63,6 +63,9 @@ gitter.messages.list('gitterHQ/sandbox')
 
 # Get single message by id
 gitter.messages.get_message('gitterHQ/sandbox', '5903a16d6a471')
+
+# Message list before id
+gitter.messages.get_messages_before_id('gitterHQ/sandbox','5903a16d6a471')
 ```
 
 
