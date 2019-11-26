@@ -174,7 +174,7 @@ class Messages(BaseApi):
     def get_messages_before_id(self, room_name, messages_id):
         room_id = self.get_room(room_name)
         return self.get(
-            self.set_message_url_before_id(room_id,messages_id)    
+            self.set_message_url_before_id(room_id, messages_id)    
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
