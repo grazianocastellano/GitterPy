@@ -104,13 +104,11 @@ class BaseApi:
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
 
     def set_message_url_before_id(self, room_name, message_id):
-        var = 'rooms/{}/chatMessages?beforeId=' + message_id
-        return var.format(room_name)
+        return 'rooms/{}/chatMessages?beforeId={}'.format(room_name,message_id)
 
 
 class Auth(BaseApi):
     """Base class for authentication flow
-
         Properties:
             get_my_id Return own ID
     """
