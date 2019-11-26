@@ -1,6 +1,5 @@
 import requests as r
-import json
-import copy
+
 
 from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
 from gitterpy.errors import GitterItemsError, GitterRoomError, GitterTokenError
