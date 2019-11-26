@@ -4,6 +4,7 @@ import requests as r
 from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
 from gitterpy.errors import GitterItemsError, GitterRoomError, GitterTokenError
 
+
 class BaseApi:
     """Base Gitter API class
 
@@ -104,7 +105,8 @@ class BaseApi:
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
 
     def set_message_url_before_id(self, room_name, message_id):
-        return 'rooms/{}/chatMessages?beforeId={}'.format(room_name,message_id)
+        var = 'rooms/{}/chatMessages?beforeId={}'
+        return var.format(room_name, message_id)
 
 
 class Auth(BaseApi):
@@ -174,7 +176,7 @@ class Messages(BaseApi):
     def get_messages_before_id(self, room_name, messages_id):
         room_id = self.get_room(room_name)
         return self.get(
-            self.set_message_url_before_id(room_id, messages_id)    
+            self.set_message_url_before_id(room_id, messages_id)
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
