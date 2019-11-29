@@ -2,6 +2,7 @@ import json
 import unittest
 
 from mock import MagicMock, patch
+
 from gitterpy.client import Auth, Groups, Messages, Rooms, User
 
 
