@@ -59,6 +59,13 @@ class TestGitter(unittest.TestCase):
         )
 
     @patch('gitterpy.client.r')
+    def test_message_list_before_id(self, request):
+        return self.return_assert(
+            request,
+            self.messages.get_messages_before_id('gitterHQ/sandbox', '3123123')
+        )
+
+    @patch('gitterpy.client.r')
     def test_send_message(self, request):
         return self.return_assert(
             request,
