@@ -1,8 +1,8 @@
 import json
 import unittest
-
+import sys
 from mock import MagicMock, patch
-
+sys.path.insert(0,'../gitterpy/')
 from gitterpy.client import Auth, Groups, Messages, Rooms, User
 
 
