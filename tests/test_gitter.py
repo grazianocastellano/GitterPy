@@ -1,9 +1,13 @@
 import json
-import unittest
 import sys
+import unittest
+
 from mock import MagicMock, patch
-sys.path.insert(0,'../gitterpy/')
+
 from gitterpy.client import Auth, Groups, Messages, Rooms, User
+
+sys.path.insert(0, '../gitterpy/')
+
 
 
 class TestGitter(unittest.TestCase):
@@ -24,7 +28,7 @@ class TestGitter(unittest.TestCase):
     def return_assert(self, request, func):
         request.get.return_value = self.mock_data
         return self.assertTrue(self.json_data, func)
-
+ 
     @patch('gitterpy.client.r')
     def test_gitter_auth(self, request):
         return self.return_assert(request, self.auth.check_auth())
