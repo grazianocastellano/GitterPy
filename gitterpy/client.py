@@ -103,10 +103,13 @@ class BaseApi:
         room_id = self.get_room(room_name)
         return 'rooms/{}/chatMessages/{}'.format(room_id, message_id)
 
+    def set_message_url_before_id(self, room_name, message_id):
+        var = 'rooms/{}/chatMessages?beforeId={}'
+        return var.format(room_name, message_id)
+
 
 class Auth(BaseApi):
     """Base class for authentication flow
-
         Properties:
             get_my_id Return own ID
     """
@@ -167,6 +170,12 @@ class Messages(BaseApi):
         room_id = self.get_room(room_name)
         return self.get(
             self.set_message_url(room_id)
+        )
+
+    def get_messages_before_id(self, room_name, messages_id):
+        room_id = self.get_room(room_name)
+        return self.get(
+            self.set_message_url_before_id(room_id, messages_id)
         )
 
     def send(self, room_name, text='GitterHQPy test message'):
