@@ -1,3 +1,5 @@
+import copy
+
 import requests as r
 
 from gitterpy.const import GITTER_BASE_URL, GITTER_STREAM_URL
@@ -188,6 +190,22 @@ class Messages(BaseApi):
     def get_message(self, room_name, message_id):
         api_meth = self.get_and_update_msg_url(room_name, message_id)
         return self.get(api_meth)
+
+    def get_all_messages(self, room_name):
+        list1 = self.list(room_name)
+        list2 = copy.deepcopy(list1)
+        list2.reverse()
+        while(True):
+            try:
+                var = list1[0]['id']
+                list1 = self.get_messages_before_id(room_name, var)
+                list1_reverse = copy.deepcopy(list1)
+                list1_reverse.reverse()
+                list2 = list2 + list1_reverse
+            except:
+                break
+        list2.reverse()
+        return list2
 
 
 class User(BaseApi):
